@@ -1,0 +1,433 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>繼承房地稅務審閱報告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700;900&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>:root{
+  --ink:#1b2430; --ink2:#4a5563; --mute:#7c8592; --line:#e3ddd2; --paper:#fbf9f5; --card:#ffffff;
+  --navy:#14263d; --navy2:#22395a; --gold:#b08d57; --gold2:#d9c39a; --goldbg:#f5eee2;
+  --g:#3f7d5c; --y:#c08a2b; --r:#a8423a; --gbg:#eaf3ee; --ybg:#fbf2e1; --rbg:#f7e7e5;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#d9d4cc}
+body{font-family:"Noto Sans TC",sans-serif;font-variant-numeric:lining-nums;color:var(--ink);font-size:9.6pt;line-height:1.65;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;margin:0 auto 8mm;background:var(--paper);position:relative;overflow:hidden;page-break-after:always;display:flex;flex-direction:column;padding:13mm 15mm 11mm}
+@media print{html,body{background:none}.page{margin:0}}
+a{color:inherit;text-decoration:none}
+.run{display:flex;justify-content:space-between;align-items:center;font-size:7.6pt;letter-spacing:.12em;color:var(--mute);border-bottom:.6pt solid var(--line);padding-bottom:3mm}
+.run .brand{color:var(--gold);font-weight:700}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-size:7.2pt;color:var(--mute);border-top:.6pt solid var(--line);padding-top:2.5mm}
+.foot .pn{font-family:"Cormorant Garamond",serif;font-size:13pt;color:var(--navy);font-weight:600}
+.foot .pn i{font-style:normal;color:var(--mute);font-size:9pt}
+.content{flex:1;display:flex;flex-direction:column;gap:6.5mm;padding-top:7mm}
+.h .kicker{font-family:"Cormorant Garamond",serif;font-size:10pt;letter-spacing:.28em;color:var(--gold);font-weight:600}
+.h h2{font-family:"Noto Serif TC",serif;font-weight:900;font-size:19pt;color:var(--navy);line-height:1.35;margin-top:1mm}
+.h h2::after{content:"";display:block;width:14mm;height:1.2pt;background:var(--gold);margin-top:3mm}
+.h .lead{margin-top:3mm;color:var(--ink2);font-size:9.8pt}
+h3,h4{font-family:"Noto Serif TC",serif;color:var(--navy)}
+h4{font-size:10.6pt;font-weight:700;margin-bottom:1.5mm}
+b,strong{font-weight:700;color:var(--navy)}
+.cite{font-size:6.8pt;color:var(--gold);vertical-align:super;margin-left:.6mm;font-weight:500}
+.muted{color:var(--mute);font-size:8.2pt}
+.note{font-size:8.4pt;color:var(--ink2)}
+.dot{display:inline-block;width:2.4mm;height:2.4mm;border-radius:50%;vertical-align:middle;margin-right:1.6mm}
+.dot.g{background:var(--g)}.dot.y{background:var(--y)}.dot.r{background:var(--r)}
+
+/* cover */
+.cover{background:var(--navy);color:#f3eee5;padding:18mm 18mm 16mm}
+.cover::before{content:"";position:absolute;inset:9mm;border:.6pt solid rgba(217,195,154,.45);pointer-events:none}
+.cover::after{content:"";position:absolute;right:-40mm;top:60mm;width:150mm;height:150mm;border-radius:50%;border:.6pt solid rgba(217,195,154,.18);box-shadow:0 0 0 14mm rgba(217,195,154,.04),0 0 0 28mm rgba(217,195,154,.03)}
+.cv-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.cv-brand{font-family:"Noto Serif TC",serif;font-weight:700;font-size:11pt;letter-spacing:.14em;color:var(--gold2)}
+.cv-brand span{display:block;font-family:"Cormorant Garamond",serif;font-size:8.5pt;letter-spacing:.3em;color:rgba(243,238,229,.55);margin-top:1mm}
+.cv-tag{font-size:8pt;letter-spacing:.16em;border:.6pt solid rgba(217,195,154,.6);padding:1.2mm 3mm;color:var(--gold2)}
+.cv-main{margin-top:52mm;position:relative;z-index:1}
+.cv-kicker{font-size:9pt;letter-spacing:.4em;color:var(--gold2)}
+.cover h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:40pt;line-height:1.25;margin-top:5mm;color:#fff;letter-spacing:.06em}
+.cv-rule{width:22mm;height:1.5pt;background:var(--gold);margin:8mm 0 6mm}
+.cv-sub{font-size:11pt;line-height:1.9;color:rgba(243,238,229,.82)}
+.cv-figs{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:22mm;border-top:.6pt solid rgba(217,195,154,.45);border-bottom:.6pt solid rgba(217,195,154,.45);position:relative;z-index:1}
+.cv-figs div{padding:5mm 4mm;border-right:.6pt solid rgba(217,195,154,.3)}
+.cv-figs div:last-child{border-right:0}
+.cv-figs b{font-family:"Cormorant Garamond",serif;font-size:26pt;color:var(--gold2);font-weight:600;line-height:1}
+.cv-figs span{font-size:8pt;margin-left:1.5mm;color:rgba(243,238,229,.7)}
+.cv-figs em{display:block;font-style:normal;font-size:8.6pt;margin-top:2mm;color:rgba(243,238,229,.85)}
+.cv-meta{margin-top:auto;position:relative;z-index:1}
+.cv-meta dl{display:grid;grid-template-columns:20mm 1fr;row-gap:2mm;font-size:8.6pt}
+.cv-meta dt{color:var(--gold2);letter-spacing:.14em}
+.cv-meta dd{color:rgba(243,238,229,.85)}
+
+/* toc */
+.toc{list-style:none;border-top:.6pt solid var(--line)}
+.toc li{display:grid;grid-template-columns:16mm 1fr 12mm;align-items:center;padding:4.2mm 0;border-bottom:.6pt solid var(--line)}
+.toc .tn{font-family:"Cormorant Garamond",serif;font-size:20pt;color:var(--gold);font-weight:600}
+.toc .tt b{display:block;font-family:"Noto Serif TC",serif;font-size:12pt}
+.toc .tt em{font-style:normal;color:var(--mute);font-size:8.6pt}
+.toc .tp{text-align:right;font-family:"Cormorant Garamond",serif;font-size:13pt;color:var(--navy)}
+.howto{background:var(--goldbg);padding:6mm;border-left:2pt solid var(--gold)}
+.howto h3{font-size:11pt;margin-bottom:3mm}
+.legend{display:flex;flex-direction:column;gap:1.5mm;margin-bottom:3mm;font-size:8.8pt;color:var(--ink2)}
+.legend b{margin-right:2mm}
+
+/* kpi */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+.kpi{background:var(--card);border:.6pt solid var(--line);border-top:2pt solid var(--navy);padding:3.5mm 4mm;position:relative}
+.kpi em{font-style:normal;font-size:8pt;color:var(--mute);letter-spacing:.06em}
+.kpi b{display:block;font-family:"Cormorant Garamond",serif;font-size:24pt;font-weight:600;line-height:1.15;margin:1mm 0}
+.kpi span{font-size:7.6pt;color:var(--ink2)}
+.kpi .dot{position:absolute;top:4mm;right:3mm}
+
+/* cards */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.two.w64{grid-template-columns:1.6fr 1fr}
+.card{background:var(--card);border:.6pt solid var(--line);padding:4.5mm;position:relative}
+.card p{font-size:9pt;color:var(--ink2)}
+.card .no{font-family:"Cormorant Garamond",serif;font-size:18pt;color:var(--gold);font-weight:600;line-height:1;margin-bottom:2mm}
+.card.soft{background:transparent;border:0;border-top:1.2pt solid var(--navy);padding:3mm 0 0}
+.card.g{border-top:2pt solid var(--g)}.card.y{border-top:2pt solid var(--y)}.card.r{border-top:2pt solid var(--r)}
+.pill{display:inline-block;margin-top:3mm;font-size:8pt;font-weight:700;padding:.8mm 3mm;border-radius:10mm}
+.pill.g{background:var(--gbg);color:var(--g)}.pill.y{background:var(--ybg);color:var(--y)}.pill.r{background:var(--rbg);color:var(--r)}
+.insight{background:var(--navy);color:#eef1f5;padding:5mm 6mm;display:grid;grid-template-columns:22mm 1fr;gap:4mm;align-items:start}
+.insight .ins-k{font-family:"Noto Serif TC",serif;color:var(--gold2);font-weight:700;font-size:10pt;border-right:.6pt solid rgba(217,195,154,.5);height:100%}
+.insight b{color:#fff}.insight p{font-size:9.2pt}
+.insight .cite{color:var(--gold2)}
+.verdict{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--navy);font-size:10.4pt;padding:4mm 5mm;background:var(--goldbg);border-left:2pt solid var(--gold)}
+
+/* timeline */
+.timeline{list-style:none;position:relative;padding-left:2mm}
+.timeline::before{content:"";position:absolute;left:31mm;top:2mm;bottom:2mm;width:.8pt;background:var(--gold2)}
+.timeline li{display:grid;grid-template-columns:30mm 1fr;gap:7mm;padding:3mm 0;position:relative}
+.timeline li::before{content:"";position:absolute;left:27.6mm;top:5mm;width:2.6mm;height:2.6mm;border-radius:50%;background:var(--paper);border:1.4pt solid var(--gold)}
+.timeline .td{font-family:"Cormorant Garamond",serif;font-size:13pt;color:var(--navy);font-weight:600;text-align:right;padding-right:4mm}
+.timeline .tb b{font-family:"Noto Serif TC",serif;font-size:11pt}
+.timeline .tb p{color:var(--ink2);font-size:9pt}
+
+/* panels/charts */
+.panel{background:var(--card);border:.6pt solid var(--line);padding:4mm 5mm}
+.ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2mm}
+.ph b{font-family:"Noto Serif TC",serif;font-size:10pt}
+.ph span{font-size:7.6pt;color:var(--mute)}
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:"Noto Sans TC",sans-serif}
+.chart .grid{stroke:#eee8de;stroke-width:1}
+.chart .axis{stroke:#b9b2a6;stroke-width:1}
+.chart .conn{stroke:#9aa3ae;stroke-width:1;stroke-dasharray:3 3}
+.chart .dash{stroke:#9aa3ae;stroke-width:1;stroke-dasharray:3 3}
+.chart .vl{font-size:11px;fill:var(--ink);font-weight:700;text-anchor:middle}
+.chart .vl.l{text-anchor:start;font-weight:500}
+.chart .xl{font-size:10.5px;fill:var(--ink2);text-anchor:middle}
+.chart .yl{font-size:11.5px;fill:var(--navy);text-anchor:end;font-weight:700}
+.chart .cap{font-size:11px;fill:var(--navy);font-weight:700}
+.chart .in{font-size:11px;fill:#fff;text-anchor:middle;font-weight:700}
+.c-add{fill:#7d97b3}.c-sub{fill:#c47a6c}.c-total{fill:#14263d}
+.c-hatch{fill:#b08d57}
+.lg{display:flex;gap:5mm;font-size:7.8pt;color:var(--ink2);margin-top:1mm}
+.sw{display:inline-block;width:3mm;height:3mm;vertical-align:middle;margin-right:1mm}
+.sw.c-add{background:#7d97b3}.sw.c-sub{background:#c47a6c}.sw.c-total{background:#14263d}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:9pt;background:var(--card)}
+.tbl th{background:var(--navy);color:#f3eee5;font-weight:500;text-align:left;padding:2.2mm 3mm;font-size:8.4pt;letter-spacing:.04em}
+.tbl td{padding:2mm 3mm;border-bottom:.6pt solid var(--line)}
+.tbl .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl .c{text-align:center}
+.tbl .neg{color:var(--r)}
+.tbl tr.sub td{font-weight:700;background:#f4f1eb;color:var(--navy)}
+.tbl tr.tot td{font-weight:700;background:var(--goldbg);color:var(--navy);border-bottom:1.2pt solid var(--gold)}
+.tbl tr.base td{background:var(--goldbg)}
+.tbl tr.hl-g td{background:var(--gbg)}.tbl tr.hl-r td{background:var(--rbg)}
+.side{display:flex;flex-direction:column;gap:3mm}
+.side p{font-size:8.9pt;color:var(--ink2)}
+.big{background:var(--navy);color:#eef1f5;padding:5mm}
+.big.r{background:#5a2a26}
+.big em{font-style:normal;font-size:8.4pt;color:var(--gold2);letter-spacing:.08em}
+.big b{display:block;color:#fff;font-family:"Cormorant Garamond",serif;font-size:34pt;font-weight:600;line-height:1.1}
+.big span{font-size:8.4pt;opacity:.8}
+
+/* requirements */
+.reqs{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.req{background:var(--card);border:.6pt solid var(--line);padding:7mm;min-height:64mm;display:flex;flex-direction:column}
+.req .rn{font-size:8pt;letter-spacing:.2em;color:var(--gold);font-weight:700}
+.req h4{font-size:15pt;margin:1mm 0 2mm}
+.req p{color:var(--ink2);font-size:9.2pt}
+.req .st{margin-top:auto;padding-top:3mm;border-top:.6pt dashed var(--line);font-size:8.4pt;color:var(--ink2);font-weight:500}
+
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.cmp>div{background:var(--card);border:.6pt solid var(--line);padding:5mm}
+.cmp ul{padding-left:4mm;color:var(--ink2);font-size:9pt}
+.cmp li{margin-bottom:1.6mm}
+
+.lv{display:inline-block;min-width:9mm;font-size:8pt;font-weight:700;padding:.4mm 2mm;border-radius:8mm}
+.lv.r{background:var(--rbg);color:var(--r)}.lv.y{background:var(--ybg);color:var(--y)}.lv.g{background:var(--gbg);color:var(--g)}
+.sh{font-size:10pt;border-bottom:1pt solid var(--navy);padding-bottom:1.2mm;margin-bottom:2mm}
+.check{list-style:none;font-size:8.6pt;color:var(--ink2)}
+.check li{display:flex;gap:2mm;margin-bottom:1.4mm}
+.box{flex:none;width:3mm;height:3mm;border:1pt solid var(--navy);margin-top:1.2mm}
+.bound{list-style:none;font-size:8.6pt;color:var(--ink2)}
+.bound li{margin-bottom:2mm;padding-left:3mm;border-left:1.5pt solid var(--gold)}
+.srcs{list-style:none;columns:2;column-gap:6mm;font-size:7.6pt;color:var(--ink2)}
+.srcs li{break-inside:avoid;margin-bottom:.8mm}
+.srcs a{border-bottom:.4pt dotted var(--gold)}
+.disc{font-size:7.4pt;color:var(--mute);border-top:.6pt solid var(--line);padding-top:2mm}
+.risk td{font-size:8.6pt;padding:1.6mm 3mm}
+</style></head><body>
+<section class="page cover">
+  <div class="cv-top">
+    <div class="cv-brand">保險傳承證據代理人<span>INHERITANCE &amp; TAX REVIEW</span></div>
+    <div class="cv-tag">審閱稿 ・ 2026 年 11 月</div>
+  </div>
+  <div class="cv-main">
+    <div class="cv-kicker">臺灣不動產暨稅務審閱報告書</div>
+    <h1>繼承房地<br>稅務審閱報告</h1>
+    <div class="cv-rule"></div>
+    <p class="cv-sub">8,000 萬存款 ・ 4,200 萬房貸 ・ 1,800 萬額外負擔<br>遺產稅與房地合一稅之分段判斷、證據要求與風險界線</p>
+  </div>
+  <div class="cv-figs">
+    <div><b>467.3</b><span>萬元</span><em>遺產稅示範稅額</em></div>
+    <div><b>1,800</b><span>萬元</span><em>額外負擔差額上限</em></div>
+    <div><b>360–630</b><span>萬元</span><em>售屋所得稅差額區間</em></div>
+  </div>
+  <div class="cv-meta">
+    <dl>
+      <dt>案件</dt><dd>父親抵押借款後身故；子女以繼承存款清償房貸並出售房地</dd>
+      <dt>審閱範圍</dt><dd>遺產稅（2024 繼承）｜房地合一稅（2026 出售）｜租稅規避界線</dd>
+      <dt>文件狀態</dt><dd>示範試算；尚未經證據、會計師、律師及發布審核</dd>
+    </dl>
+  </div>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">目錄</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">CONTENTS</div><h2>目錄</h2></div>
+<ol class="toc"><li><span class="tn">01</span><span class="tt"><b>執行摘要</b><em>三個結論、稅負總覽與關鍵洞見</em></span><span class="tp">03</span></li><li><span class="tn">02</span><span class="tt"><b>案件事實</b><em>2022–2026 時間軸與死亡日資產負債</em></span><span class="tp">04</span></li><li><span class="tn">03</span><span class="tt"><b>第一階段｜遺產稅</b><em>列報原則、瀑布試算與家庭情境敏感度</em></span><span class="tp">05</span></li><li><span class="tn">04</span><span class="tt"><b>第二階段｜房地合一稅</b><em>新舊制、持有期間與稅率判定</em></span><span class="tp">07</span></li><li><span class="tn">05</span><span class="tt"><b>1,800 萬額外負擔</b><em>准扣與不准扣之稅額差、四道要件</em></span><span class="tp">08</span></li><li><span class="tn">06</span><span class="tt"><b>租稅規避界線</b><em>對照分析、支持事實與待查疑點</em></span><span class="tp">10</span></li><li><span class="tn">07</span><span class="tt"><b>法院判決參考</b><em>114 年度訴字第 174 號之可用與不可用處</em></span><span class="tp">11</span></li><li><span class="tn">08</span><span class="tt"><b>行動計畫與證據清單</b><em>風險矩陣、申報前文件、官方來源</em></span><span class="tp">12</span></li></ol>
+<div class="howto">
+  <h3>閱讀指引</h3>
+  <div class="legend">
+    <span><i class="dot g"></i><b>已可確認</b>數字或法律規定明確，與事實無涉</span>
+    <span><i class="dot y"></i><b>待查證</b>結論方向成立，但須以原始文件證明</span>
+    <span><i class="dot r"></i><b>風險點</b>可能被國稅局調整或爭訟之處</span>
+  </div>
+  <p>金額單位除另註明外均為<strong>新臺幣萬元</strong>。所有稅額均為依限定假設之<strong>示範試算</strong>，不等於稽徵機關核定稅額；實際家庭成員、其他財產、扣除額或取得日不同時，應重新計算。</p>
+</div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">02<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">01　執行摘要</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">EXECUTIVE SUMMARY</div><h2>兩種稅、兩個課稅事件，不能混為一談</h2><p class="lead">本案涉及 2024 年「繼承」與 2026 年「出售」兩個獨立課稅事件，應分別適用遺產及贈與稅法與所得稅法房地合一規定，並另行檢視是否構成租稅規避。</p></div>
+<div class="kpis">
+  <div class="kpi"><em>遺產稅（示範）</em><b>467.3</b><span>無配偶、一名成年子女</span><i class="dot g"></i></div>
+  <div class="kpi"><em>額外負擔差額</em><b>1,800</b><span>4,200 − 2,400；扣除資格待查</span><i class="dot y"></i></div>
+  <div class="kpi"><em>售屋稅差（20%）</em><b>360</b><span>適用 35% 時為 630</span><i class="dot y"></i></div>
+  <div class="kpi"><em>兩稅合計（20%）</em><b>763–1,123</b><span>准扣 ↔ 不准扣</span><i class="dot r"></i></div>
+</div>
+<div class="three">
+  <div class="card"><div class="no">01</div><h4>遺產稅</h4><p>銀行存款 8,000 萬應全數列入遺產；有確實證明的死亡前未償銀行債務 4,200 萬，依法另行審查扣除。<a class="cite" href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0340072">[4]</a><a class="cite" href="https://www.etax.nat.gov.tw/etwmain/tax-info/understanding/tax-q-and-a/national/estate-tax/exemption/g8njZxx">[9]</a></p></div>
+  <div class="card"><div class="no">02</div><h4>房地合一稅</h4><p>繼承時房地現值 2,400 萬，抵押債務 4,200 萬；超出之 1,800 萬僅在符合 109 年令釋及實際負擔要件時可減除。<a class="cite" href="https://gazette.nat.gov.tw/egFront/eguploadpubWrapper?file=%2FEG_FileManager%2Feguploadpub%2Feg026132%2Fch04%2Ftype2%2Fgov30%2Fnum11%2FEg.htm&metaid=117054">[1]</a><a class="cite" href="https://law-out.mof.gov.tw/LawContent.aspx?id=FL005935">[5]</a></p></div>
+  <div class="card"><div class="no">03</div><h4>本案核心風險</h4><p>借款未動用、現金留在遺產，子女再以繼承存款還款。須查核借貸真實性、資金歸屬及是否濫用法律形式。<a class="cite" href="https://law-out.mof.gov.tw/LawContent.aspx?KeyWord=&id=GL010199">[7]</a></p></div>
+</div>
+<div class="insight">
+  <div class="ins-k">關鍵洞見</div>
+  <p><b>借款對遺產稅是「中性」的；真正的稅負差異只出現在售屋所得稅。</b>存款增加 4,200 萬、負債同步增加 4,200 萬，扣債後遺產價值與未借款時同為 6,200 萬。若 1,800 萬額外負擔獲准扣除，效果完全體現在房地合一稅（20% 時少 360 萬），這也正是稽徵機關檢視「是否濫用法律形式」的焦點。</p>
+</div>
+<div class="verdict">不是「有 8,000 萬現金就必不准扣」，也不是「有 4,200 萬房貸就必准扣」。</div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">03<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">02　案件事實</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">CASE FACTS</div><h2>2022 至 2026：借款、繼承、清償、出售</h2></div>
+<ol class="timeline"><li><div class="td">2022 / 6 / 1</div><div class="tb"><b>父親借款</b><p>原有存款 3,800 萬；以本案房地抵押向銀行借款 4,200 萬，全數存入銀行、未動用。</p></div></li><li><div class="td">2024 / 6 / 1</div><div class="tb"><b>父親死亡（繼承開始）</b><p>存款 8,000 萬（含借款 4,200 萬）；房地課稅現值 2,400 萬；未償銀行抵押貸款 4,200 萬。</p></div></li><li><div class="td">2025</div><div class="tb"><b>子女清償房貸</b><p>子女以繼承存款 4,200 萬清償；僅就現金而言，未計稅費前餘 3,800 萬。</p></div></li><li><div class="td">2026</div><div class="tb"><b>出售房地</b><p>以 6,000 萬出售。所得與稅率須另確認父親原始取得日、費用、土地漲價總數額及新舊制。</p></div></li></ol>
+<div class="panel">
+  <div class="ph"><b>死亡日（2024/6/1）資產負債快照</b><span>單位：萬元</span></div>
+  <svg viewBox="0 0 640 150" class="chart" role="img" aria-label="死亡日資產負債"><text x="40" y="16" class="cap">資產　10,400 萬</text><rect x="40" y="24" width="204.6" height="34" class="c-total"/><rect x="244.6" y="24" width="226.2" height="34" class="c-hatch"/><rect x="470.8" y="24" width="129.2" height="34" class="c-add"/><text x="142.3" y="46" class="in">原有存款 3,800</text><text x="357.7" y="46" class="in">借款存入 4,200</text><text x="535.4" y="46" class="in">房地現值 2,400</text><text x="40" y="90" class="cap">負債　4,200 萬</text><rect x="244.6" y="98" width="226.2" height="34" class="c-sub"/><text x="357.7" y="120" class="in">銀行抵押貸款 4,200</text><line x1="244.6" x2="244.6" y1="20" y2="138" class="dash"/><line x1="470.8" x2="470.8" y1="20" y2="138" class="dash"/></svg>
+  <p class="note">斜線區塊即借款存入之 4,200 萬：它同時出現在資產與負債兩側，<strong>並非新增淨資產</strong>。<a class="cite" href="https://gazette.nat.gov.tw/egFront/eguploadpubWrapper?file=%2FEG_FileManager%2Feguploadpub%2Feg026132%2Fch04%2Ftype2%2Fgov30%2Fnum11%2FEg.htm&metaid=117054">[1]</a><a class="cite" href="https://www.etax.nat.gov.tw/etwmain/tax-info/understanding/tax-q-and-a/national/estate-tax/exemption/g8njZxx">[9]</a></p>
+</div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">04<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">03　第一階段｜遺產稅</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">STAGE 1 ・ ESTATE TAX</div><h2>現金與負債必須同時揭露</h2><p class="lead">遺產稅以死亡時財產價值計算；房地以公告土地現值及房屋評定標準價格核認，不以 6,000 萬市價計。</p></div>
+<div class="panel">
+  <div class="ph"><b>由遺產總額到課稅遺產淨額</b><span>單位：萬元</span></div>
+  <svg viewBox="0 0 640 270" class="chart" role="img" aria-label="遺產稅瀑布圖"><line x1="14" x2="630" y1="220.0" y2="220.0" class="grid"/><line x1="14" x2="630" y1="172.9" y2="172.9" class="grid"/><line x1="14" x2="630" y1="125.8" y2="125.8" class="grid"/><line x1="14" x2="630" y1="78.7" y2="78.7" class="grid"/><line x1="14" x2="630" y1="31.5" y2="31.5" class="grid"/><rect x="20" y="69.2" width="50" height="150.8" rx="2" class="c-add"/><text x="45.0" y="63.2" class="vl">8,000</text><text x="45.0" y="236" class="xl">銀行存款</text><rect x="88" y="24.0" width="50" height="45.2" rx="2" class="c-add"/><line x1="70" x2="88" y1="69.2" y2="69.2" class="conn"/><text x="113.0" y="18.0" class="vl">2,400</text><text x="113.0" y="236" class="xl">房地現值</text><rect x="156" y="24.0" width="50" height="196.0" rx="2" class="c-total"/><line x1="138" x2="156" y1="24.0" y2="24.0" class="conn"/><text x="181.0" y="18.0" class="vl">10,400</text><text x="181.0" y="236" class="xl">遺產總額</text><rect x="224" y="24.0" width="50" height="79.2" rx="2" class="c-sub"/><line x1="206" x2="224" y1="24.0" y2="24.0" class="conn"/><text x="249.0" y="18.0" class="vl">−4,200</text><text x="249.0" y="236" class="xl">未償貸款</text><rect x="292" y="103.2" width="50" height="116.8" rx="2" class="c-total"/><line x1="274" x2="292" y1="103.2" y2="103.2" class="conn"/><text x="317.0" y="97.2" class="vl">6,200</text><text x="317.0" y="236" class="xl">扣債後價值</text><rect x="360" y="103.2" width="50" height="25.1" rx="2" class="c-sub"/><line x1="342" x2="360" y1="103.2" y2="103.2" class="conn"/><text x="385.0" y="97.2" class="vl">−1,333</text><text x="385.0" y="236" class="xl">免稅額</text><rect x="428" y="128.3" width="50" height="1.5" rx="2" class="c-sub"/><line x1="410" x2="428" y1="128.3" y2="128.3" class="conn"/><text x="453.0" y="122.3" class="vl">−56</text><text x="453.0" y="236" class="xl">成年子女</text><rect x="496" y="129.3" width="50" height="2.6" rx="2" class="c-sub"/><line x1="478" x2="496" y1="129.3" y2="129.3" class="conn"/><text x="521.0" y="123.3" class="vl">−138</text><text x="521.0" y="236" class="xl">喪葬費</text><rect x="564" y="131.9" width="50" height="88.1" rx="2" class="c-total"/><line x1="546" x2="564" y1="131.9" y2="131.9" class="conn"/><text x="589.0" y="125.9" class="vl">4,673</text><text x="589.0" y="236" class="xl">課稅淨額</text><line x1="14" x2="630" y1="220" y2="220" class="axis"/></svg>
+  <div class="lg"><span><i class="sw c-add"></i>資產</span><span><i class="sw c-sub"></i>減項</span><span><i class="sw c-total"></i>小計</span></div>
+</div>
+<div class="two">
+  <table class="tbl">
+    <thead><tr><th>項目（113 年適用金額）</th><th class="n">萬元</th></tr></thead>
+    <tbody>
+      <tr><td>銀行存款（含借款存入）</td><td class="n">8,000</td></tr>
+      <tr><td>房地課稅現值（非市價）</td><td class="n">2,400</td></tr>
+      <tr class="sub"><td>遺產總額</td><td class="n">10,400</td></tr>
+      <tr><td>確有證明之未償貸款</td><td class="n neg">−4,200</td></tr>
+      <tr><td>免稅額</td><td class="n neg">−1,333</td></tr>
+      <tr><td>成年子女扣除額（1 名）</td><td class="n neg">−56</td></tr>
+      <tr><td>喪葬費扣除額</td><td class="n neg">−138</td></tr>
+      <tr class="sub"><td>課稅遺產淨額</td><td class="n">4,673</td></tr>
+      <tr class="tot"><td>應納遺產稅（10%）</td><td class="n">467.3</td></tr>
+    </tbody>
+  </table>
+  <div class="side">
+    <h4>計算與法律前提</h4>
+    <p>4,673 落在 113 年第一級距（課稅遺產淨額 5,621 萬以下）稅率 10%：4,673 × 10% ＝ <b>467.3 萬</b>。<a class="cite" href="https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg029222/ch04/type3/gov30/num19/Eg.htm">[3]</a></p>
+    <p>遺產及贈與稅法第 17 條第 1 項第 9 款：被繼承人死亡前未償債務須<b>具確實證明</b>，銀行貸款應備借款契約、撥款紀錄及死亡日餘額證明。<a class="cite" href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0340072">[4]</a><a class="cite" href="https://www.etax.nat.gov.tw/etwmain/tax-info/understanding/tax-q-and-a/national/estate-tax/exemption/g8njZxx">[9]</a></p>
+    <p class="muted">原報告寫「5,000 萬以下 10%」係法定基準金額；113 年經物價指數調整後級距上限為 5,621 萬，本版已更正，結果不變。</p>
+  </div>
+</div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">05<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">03　第一階段｜遺產稅</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">STAGE 1 ・ SENSITIVITY</div><h2>467.3 萬只在限定假設下成立</h2><p class="lead">家庭成員結構直接影響扣除額。以下以 113 年適用金額示範，其他財產、生前贈與或其他扣除額均未納入。</p></div>
+<table class="tbl wide">
+  <thead><tr><th>情境</th><th>家庭條件</th><th class="n">課稅遺產淨額</th><th class="n">遺產稅（10%）</th></tr></thead>
+  <tbody><tr class="base"><td><b>基準示範</b></td><td>無配偶、一名成年子女</td><td class="n">4,673</td><td class="n">467.3</td></tr><tr class=""><td><b>情境 A</b></td><td>無配偶、兩名成年子女（+56）</td><td class="n">4,617</td><td class="n">461.7</td></tr><tr class=""><td><b>情境 B</b></td><td>配偶在世、一名成年子女（+553）</td><td class="n">4,120</td><td class="n">412.0</td></tr><tr class=""><td><b>情境 C</b></td><td>情境 B ＋ 配偶主張剩餘財產差額分配請求權</td><td class="n">依請求額再減</td><td class="n">另計</td></tr></tbody>
+</table>
+<div class="three">
+  <div class="card soft"><h4>借款存在與否，遺產稅不變</h4><p>未借款：存款 3,800 ＋ 房地 2,400 ＝ 6,200。<br>有借款：10,400 − 4,200 ＝ 6,200。<br>兩者扣債後價值完全相同。</p></div>
+  <div class="card soft"><h4>扣債的證據門檻</h4><p>需能證明貸款期間、撥款入帳、死亡日餘額，且債務屬被繼承人本人。缺證明時，存款照列、債務不准扣，稅負反而上升。<a class="cite" href="https://www.etax.nat.gov.tw/etwmain/tax-info/understanding/tax-q-and-a/national/estate-tax/exemption/g8njZxx">[9]</a></p></div>
+  <div class="card soft"><h4>重病期間舉債之檢查</h4><p>若借款時被繼承人已重病無法處理事務，繼承人須說明借款用途。本案資金仍在存款中並已列入遺產，宜備妥流水佐證。</p></div>
+</div>
+<div class="verdict">資產 10,400 − 貸款 4,200 ＝ 6,200 萬，仍不是最終「課稅遺產淨額」；應以實際家庭與財產狀況重算。</div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">06<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">04　第二階段｜房地合一稅</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">STAGE 2 ・ REGIME</div><h2>賣房先判定新舊制與持有期間</h2><p class="lead">因繼承取得之房地，持有期間得合併被繼承人持有期間計算；但新舊制與稅率仍取決於「父親原始取得日」，而非借款日或繼承日。</p></div>
+<div class="three">
+  <div class="card"><div class="no">A</div><h4>父親 2018/6 取得</h4><p>子女 2026/6 出售，原則適用新制；合併持有約 8 年，境內居住者稅率 <b>20%</b>。</p><div class="pill g">稅率 20%</div></div>
+  <div class="card"><div class="no">B</div><h4>父親 2022/6 取得</h4><p>子女 2026/6 出售，原則適用新制；合併持有約 4 年，境內居住者稅率 <b>35%</b>。</p><div class="pill r">稅率 35%</div></div>
+  <div class="card"><div class="no">C</div><h4>父親 2015 年以前取得</h4><p>須檢查舊制與過渡規定；不能僅因子女於 2024 年繼承，就一律套用新制 20%。</p><div class="pill y">另行查核</div></div>
+</div>
+<table class="tbl wide rates">
+  <thead><tr><th>境內居住者持有期間（合併計算）</th><th class="n">稅率</th><th>本案示範</th></tr></thead>
+  <tbody>
+    <tr><td>2 年以內</td><td class="n">45%</td><td></td></tr>
+    <tr class="hl-r"><td>超過 2 年、未逾 5 年</td><td class="n">35%</td><td>示範 B（約 4 年）</td></tr>
+    <tr class="hl-g"><td>超過 5 年、未逾 10 年</td><td class="n">20%</td><td>示範 A（約 8 年）</td></tr>
+    <tr><td>超過 10 年</td><td class="n">15%</td><td></td></tr>
+  </tbody>
+</table>
+<div class="verdict">關鍵：2022 年是「借款日」，不一定是「原始購屋日」。未核對權狀與原始取得資料前，不能確定售屋稅率。<a class="cite" href="https://law-out.mof.gov.tw/LawContent.aspx?id=FL005935">[5]</a><a class="cite" href="https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg027108/ch04/type1/gov30/num5/Eg.htm">[6]</a><a class="cite" href="https://law-out.mof.gov.tw/LawContent.aspx?id=GL011745">[10]</a></div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">07<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">05　1,800 萬額外負擔</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">STAGE 2 ・ IMPACT</div><h2>1,800 萬准扣與不准扣：所得稅差額</h2><p class="lead">示範 A 假設：父親 2018 年購屋、子女 2026 年出售；物價調整 105%、有憑證費用 100 萬、可減除土地漲價總數額 100 萬。</p></div>
+<div class="two w64">
+  <table class="tbl">
+    <thead><tr><th>房地合一稅計算</th><th class="n">不准扣</th><th class="n">全額准扣</th></tr></thead>
+    <tbody>
+      <tr><td>出售價額</td><td class="n">6,000</td><td class="n">6,000</td></tr>
+      <tr><td>繼承現值 × 105%</td><td class="n neg">−2,520</td><td class="n neg">−2,520</td></tr>
+      <tr><td>費用與土地漲價總數額</td><td class="n neg">−200</td><td class="n neg">−200</td></tr>
+      <tr><td>額外負擔（109 年令釋）</td><td class="n">0</td><td class="n neg">−1,800</td></tr>
+      <tr class="sub"><td>課稅所得</td><td class="n">3,280</td><td class="n">1,480</td></tr>
+      <tr class="tot"><td>應納稅額（20%）</td><td class="n">656</td><td class="n">296</td></tr>
+      <tr><td>應納稅額（35%）</td><td class="n">1,148</td><td class="n">518</td></tr>
+    </tbody>
+  </table>
+  <div class="side">
+    <div class="big"><em>稅額差（20%）</em><b>360</b><span>萬元 ＝ 1,800 × 20%</span></div>
+    <div class="big r"><em>稅額差（35%）</em><b>630</b><span>萬元 ＝ 1,800 × 35%</span></div>
+  </div>
+</div>
+<div class="panel">
+  <div class="ph"><b>應納房地合一稅比較</b><span>單位：萬元</span></div>
+  <svg viewBox="0 0 640 190" class="chart" role="img" aria-label="房地合一稅比較"><line x1="92.0" x2="92.0" y1="12" y2="166" class="grid"/><text x="92.0" y="182" class="xl">0</text><line x1="205.0" x2="205.0" y1="12" y2="166" class="grid"/><text x="205.0" y="182" class="xl">300</text><line x1="318.0" x2="318.0" y1="12" y2="166" class="grid"/><text x="318.0" y="182" class="xl">600</text><line x1="431.0" x2="431.0" y1="12" y2="166" class="grid"/><text x="431.0" y="182" class="xl">900</text><line x1="544.0" x2="544.0" y1="12" y2="166" class="grid"/><text x="544.0" y="182" class="xl">1,200</text><text x="80" y="50" class="yl">適用 20%</text><rect x="92" y="20" width="247.1" height="22" rx="2" class="c-sub"/><text x="347.1" y="36" class="vl l">656 不准扣</text><rect x="92" y="46" width="111.5" height="22" rx="2" class="c-total"/><text x="211.5" y="62" class="vl l">296 全額准扣</text><text x="80" y="126" class="yl">適用 35%</text><rect x="92" y="96" width="432.4" height="22" rx="2" class="c-sub"/><text x="532.4" y="112" class="vl l">1,148 不准扣</text><rect x="92" y="122" width="195.1" height="22" rx="2" class="c-total"/><text x="295.1" y="138" class="vl l">518 全額准扣</text></svg>
+</div>
+<p class="note">稅額差僅在全部符合扣除條件時成立；成本、費用、物價指數或稅率不同時應重算。<a class="cite" href="https://gazette.nat.gov.tw/egFront/eguploadpubWrapper?file=%2FEG_FileManager%2Feguploadpub%2Feg026132%2Fch04%2Ftype2%2Fgov30%2Fnum11%2FEg.htm&metaid=117054">[1]</a><a class="cite" href="https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=ae1948f2ee40413cb8a43bdaf65038f3">[2]</a><a class="cite" href="https://law-out.mof.gov.tw/LawContent.aspx?id=FL005935">[5]</a></p>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">08<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">05　1,800 萬額外負擔</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">ELIGIBILITY</div><h2>109 年令釋：四道要件都要成立</h2><p class="lead">四項要件為「且」的關係，任何一項無法證明，1,800 萬即不得自售屋所得中減除。</p></div>
+<div class="reqs"><div class="req"><div class="rn">要件一</div><h4>同一標的</h4><p>死亡時未償債務，必須以本次繼承並出售的「該房地」提供抵押擔保。</p><div class="st"><i class="dot y"></i>核對抵押權設定</div></div><div class="req"><div class="rn">要件二</div><h4>金融機構</h4><p>以金融機構為債權人；私人間借貸不因有不動產抵押就自動符合令釋。</p><div class="st"><i class="dot g"></i>本案為銀行貸款</div></div><div class="req"><div class="rn">要件三</div><h4>超過現值</h4><p>死亡日抵押貸款餘額 4,200 − 房地現值 2,400 ＝ 1,800 萬，為差額上限。</p><div class="st"><i class="dot g"></i>金額可確認</div></div><div class="req"><div class="rn">要件四</div><h4>實際負擔</h4><p>須核對繼承人負擔與償還紀錄；僅部分真正負擔者，不能不分持分全額認列。</p><div class="st"><i class="dot y"></i>核對清償憑證與持分</div></div></div>
+<div class="insight">
+  <div class="ins-k">實務提醒</div>
+  <p>以繼承現金清償貸款，本身<b>並非</b>令釋列出的排除原因；但還款資金的來源、付款人與遺產分配是否一致，仍須查明。若遺產分割協議由特定繼承人取得房地與對應存款，應由該繼承人名義清償並保留扣款紀錄。<a class="cite" href="https://gazette.nat.gov.tw/egFront/eguploadpubWrapper?file=%2FEG_FileManager%2Feguploadpub%2Feg026132%2Fch04%2Ftype2%2Fgov30%2Fnum11%2FEg.htm&metaid=117054">[1]</a><a class="cite" href="https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=ae1948f2ee40413cb8a43bdaf65038f3">[2]</a></p>
+</div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">09<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">06　租稅規避界線</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">ANTI-AVOIDANCE</div><h2>真實借貸、現金保留與租稅規避的界線</h2><p class="lead">把「父親未借款」作為對照組，可以看清此安排的稅務效果落在哪裡，也就知道稽徵機關會檢視什麼。</p></div>
+<table class="tbl wide">
+  <thead><tr><th>對照分析（示範 A，20%）</th><th class="n">父親未借款</th><th class="n">借款且准扣</th><th class="n">差異</th></tr></thead>
+  <tbody>
+    <tr><td>扣債後遺產價值</td><td class="n">6,200</td><td class="n">6,200</td><td class="n">0</td></tr>
+    <tr><td>遺產稅</td><td class="n">467.3</td><td class="n">467.3</td><td class="n">0</td></tr>
+    <tr><td>房地合一稅</td><td class="n">656</td><td class="n">296</td><td class="n neg">−360</td></tr>
+    <tr class="tot"><td>兩稅合計</td><td class="n">1,123.3</td><td class="n">763.3</td><td class="n">−360</td></tr>
+  </tbody>
+</table>
+<div class="three">
+  <div class="card g"><h4>支持扣除的事實</h4><p>金融機構真實放款、抵押有效、死亡時仍未償；8,000 萬存款與 4,200 萬負債均如實列報；子女確實承受並清償。</p></div>
+  <div class="card y"><h4>需加強調查的疑點</h4><p>借款完全未動用，資金目的為何？是否有親友代償、補償或資金回流？繼承分配與付款人是否一致？</p></div>
+  <div class="card r"><h4>依法調整不能靠臆測</h4><p>納保法第 7 條：須證明濫用法律形式、非常規交易、違背立法目的等要件；稽徵機關負舉證責任，納稅人負協力義務。<a class="cite" href="https://law-out.mof.gov.tw/LawContent.aspx?KeyWord=&id=GL010199">[7]</a></p></div>
+</div>
+<div class="verdict">不是「有節稅目的就違法」，也不是「銀行放款真實就一律排除租稅規避」。</div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">10<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">07　法院判決參考</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">CASE LAW</div><h2>114 年度訴字第 174 號：扣除與 20% 稅率分開審</h2><p class="lead">臺北高等行政法院高等行政訴訟庭，2026/1/29 判決，原告之訴駁回；判決確定狀態另待查。</p></div>
+<div class="two">
+  <div class="card"><div class="no">A</div><h4>A 房地</h4><p>超額房貸負擔 1,367 萬餘元<br>核定交易所得 2,122 萬餘元</p></div>
+  <div class="card"><div class="no">B</div><h4>B 房地</h4><p>超額房貸負擔 2,796 萬餘元<br>核定交易所得 1,356 萬餘元</p></div>
+</div>
+<div class="cmp">
+  <div><h4><i class="dot g"></i>可以參考的部分</h4><ul>
+    <li>超額房貸負擔已在所得計算中認列，顯示「額外負擔扣除」與「稅率適用」是兩個獨立爭點。</li>
+    <li>主張非自願出售 20%，須客觀證明無足夠資力清償貸款。</li>
+    <li>法院會綜合衡量遺產市值、存款、股票與家庭資力。</li></ul></div>
+  <div><h4><i class="dot r"></i>不能直接套用的部分</h4><ul>
+    <li>該案並非「4,200 萬借款原封不動留在 8,000 萬存款」的情形，不是本案直接判例。</li>
+    <li>不得把另一件判決當作本案已獲核定的證據。</li>
+    <li>本案繼承 8,000 萬存款，僅稱房貸很高，難以主張非自願出售。</li></ul></div>
+</div>
+<div class="verdict">結論：本案若主張非自願出售 20%，勝算有限；應以實際持有期間決定稅率，並將資源集中於額外負擔要件的舉證。<a class="cite" href="https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg027108/ch04/type1/gov30/num5/Eg.htm">[6]</a><a class="cite" href="https://judgment.judicial.gov.tw/FJUD/printData.aspx?id=TPBA%2C114%2C%E8%A8%B4%2C174%2C20260129%2C2">[8]</a></div>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">11<i> / 12</i></span></footer>
+</section>
+<section class="page ">
+  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">08　行動計畫與證據清單</span></header>
+  <div class="content">
+<div class="h"><div class="kicker">ACTION PLAN</div><h2>申報前：風險矩陣、證據清單與官方來源</h2></div>
+<table class="tbl wide risk">
+  <thead><tr><th>風險事項</th><th class="c">可能性</th><th class="c">影響</th><th>因應措施</th></tr></thead>
+  <tbody><tr><td>額外負擔 1,800 萬遭否准</td><td class="c"><span class="lv r">高</span></td><td class="c"><span class="lv r">高</span></td><td>備齊抵押、清償與分配文件；依持分認列</td></tr><tr><td>父親原始取得日不明致稅率錯用</td><td class="c"><span class="lv y">中</span></td><td class="c"><span class="lv r">高</span></td><td>調閱權狀、登記謄本與原始買賣契約</td></tr><tr><td>被認定濫用法律形式（納保法 §7）</td><td class="c"><span class="lv y">中</span></td><td class="c"><span class="lv y">中</span></td><td>說明借款目的與資金流向；不作臆測性主張</td></tr><tr><td>遺產稅扣債證明不足</td><td class="c"><span class="lv g">低</span></td><td class="c"><span class="lv y">中</span></td><td>取得銀行死亡日餘額證明與撥款紀錄</td></tr></tbody>
+</table>
+<div class="two">
+  <div><h4 class="sh">申報／覆核前必備原件</h4><ul class="check"><li><i class="box"></i>銀行借款契約、抵押權設定、2022 年撥款與存款完整流水</li><li><i class="box"></i>2024/6/1 死亡日房地現值、銀行存款與貸款餘額證明</li><li><i class="box"></i>遺產稅申報書／核定通知書、繼承人名冊、遺產分割協議</li><li><i class="box"></i>2025 年子女清償本金及利息之銀行扣款／清償證明</li><li><i class="box"></i>原始購屋日期、2026 出售契約、仲介費、土地漲價總數額資料</li></ul>
+    <p class="note">期限提醒：房地合一稅應於完成所有權移轉登記日之次日起 30 日內申報；遺產稅原應於死亡後 6 個月內申報，請確認已申報並取得核定通知書。</p></div>
+  <div><h4 class="sh">三個結論的適用界線</h4><ul class="bound">
+    <li><b>遺產稅 467.3 萬</b>：僅適用一名成年子女、無配偶等限定假設。</li>
+    <li><b>額外負擔 1,800 萬</b>：金額差額成立；個案扣除資格尚待查證。</li>
+    <li><b>售屋稅差 360 萬</b>：僅適用 20% 及示範成本費用之條件試算。</li></ul></div>
+</div>
+<h4 class="sh">官方原始來源（可點擊）</h4>
+<ol class="srcs"><li><a href="https://gazette.nat.gov.tw/egFront/eguploadpubWrapper?file=%2FEG_FileManager%2Feguploadpub%2Feg026132%2Fch04%2Ftype2%2Fgov30%2Fnum11%2FEg.htm&metaid=117054">[1] 財政部 109 年 7 月 15 日令釋（繼承房地額外負擔）</a></li><li><a href="https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=ae1948f2ee40413cb8a43bdaf65038f3">[2] 財政部臺北國稅局｜繼承房貸額外負擔說明</a></li><li><a href="https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg029222/ch04/type3/gov30/num19/Eg.htm">[3] 財政部 112 年 11 月 23 日公告（113 年遺產稅免稅額、扣除額及級距）</a></li><li><a href="https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=G0340072">[4] 遺產及贈與稅法 第 10、13、14、17 條等</a></li><li><a href="https://law-out.mof.gov.tw/LawContent.aspx?id=FL005935">[5] 所得稅法 第 4 條之 4、第 14 條之 4 至 14 條之 5 等</a></li><li><a href="https://gazette.nat.gov.tw/EG_FileManager/eguploadpub/eg027108/ch04/type1/gov30/num5/Eg.htm">[6] 財政部 110 年 6 月 11 日令釋（房地合一非自願出售）</a></li><li><a href="https://law-out.mof.gov.tw/LawContent.aspx?KeyWord=&id=GL010199">[7] 納稅者權利保護法 第 7 條（租稅規避）</a></li><li><a href="https://judgment.judicial.gov.tw/FJUD/printData.aspx?id=TPBA%2C114%2C%E8%A8%B4%2C174%2C20260129%2C2">[8] 臺北高等行政法院 114 年度訴字第 174 號判決</a></li><li><a href="https://www.etax.nat.gov.tw/etwmain/tax-info/understanding/tax-q-and-a/national/estate-tax/exemption/g8njZxx">[9] 財政部稅務入口網｜生前未清償債務扣除及證明文件</a></li><li><a href="https://law-out.mof.gov.tw/LawContent.aspx?id=GL011745">[10] 財政部 115 年 7 月 15 日令釋</a></li></ol>
+<p class="disc">本報告為稅務審閱之示範試算與教育用途，不構成稅務、法律意見或特定商品推薦，亦不保證稽徵機關核定結果；尚未通過證據、專家及發布審核，申報前請交由會計師／律師核對。</p>
+</div>
+  <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">12<i> / 12</i></span></footer>
+</section></body></html>
