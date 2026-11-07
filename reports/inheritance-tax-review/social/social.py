@@ -3,10 +3,23 @@
 import sys, pathlib
 OUT = pathlib.Path(sys.argv[1])
 N = 10
+def compass(size, lower="#ffffff"):
+    return (f'<svg class="cp" width="{size}" height="{size}" viewBox="0 0 100 100" aria-hidden="true">'
+            '<circle cx="50" cy="50" r="46" fill="none" stroke="#c9a464" stroke-width="3"/>'
+            '<polygon points="50,21 41.5,50 58.5,50" fill="#c9a464"/>'
+            f'<polygon points="41.5,50 58.5,50 50,79" fill="none" stroke="{lower}" stroke-width="3" stroke-linejoin="round"/></svg>')
+def lockup(size, lower, cls=""):
+    return f'<span class="brand {cls}">{compass(size, lower)}<span class="bn">Holly</span><i class="sep"></i><span class="bz">財務安心教練</span></span>'
+DECO = ('<svg class="deco" viewBox="0 0 800 800" aria-hidden="true"><g fill="none" stroke="#c9a464" stroke-opacity=".22" stroke-width="1.5">'
+        '<circle cx="400" cy="400" r="390"/><circle cx="400" cy="400" r="300"/><circle cx="400" cy="400" r="210"/>'
+        '<line x1="400" y1="0" x2="400" y2="800" stroke-opacity=".12"/><line x1="0" y1="400" x2="800" y2="400" stroke-opacity=".12"/>'
+        '<polygon points="400,60 430,400 400,740 370,400"/></g></svg>')
 
 def slide(i, body, theme="light", title_tag=""):
-    return f'''<section class="s {theme}">
-  <div class="top"><span class="brand">保險傳承證據代理人</span><span class="tag">{title_tag}</span></div>
+    lower = "#13253c" if theme == "light" else "#ffffff"
+    deco = DECO if theme == "navy" else ""
+    return f'''<section class="s {theme}">{deco}
+  <div class="top">{lockup(46, lower)}<span class="tag">{title_tag}</span></div>
   <div class="body">{body}</div>
   <div class="bot"><span>示範試算・非個案核定・申報前請洽會計師／律師</span><span class="pg">{i:02d}<i>/{N:02d}</i></span></div>
 </section>'''
@@ -14,11 +27,11 @@ def slide(i, body, theme="light", title_tag=""):
 S = []
 
 # 1 cover
-S.append(f'''<section class="s cover">
-  <div class="top"><span class="brand">保險傳承證據代理人</span><span class="tag">繼承稅務 ・ 案例拆解</span></div>
+S.append(f'''<section class="s cover">{DECO}
+  <div class="top">{lockup(64, "#ffffff", "lg")}<span class="tag">繼承稅務 ・ 案例拆解</span></div>
   <div class="cv">
     <div class="q">爸爸借了 4,200 萬<br>一毛都沒花</div>
-    <div class="big">子女賣房<br>可能少繳 <b>360</b> 萬？</div>
+    <div class="big">子女賣房可能<br>少繳 <b>360</b> 萬？</div>
     <div class="chips"><span>遺產稅</span><span>房地合一稅</span><span>1,800 萬額外負擔</span></div>
   </div>
   <div class="cvfoot">
@@ -111,6 +124,7 @@ dc = ["銀行借款契約、抵押權設定、撥款與存款流水", "死亡日
 dch = "".join(f'<li><i></i>{d}</li>' for d in dc)
 S.append(slide(10, f'''<h1>申報前<br><span>這 5 份文件先備齊</span></h1>
 <ul class="ck">{dch}</ul>
+<div class="sig">{compass(96, "#13253c")}<div><div class="sgn">Holly<i class="sep"></i>財務安心教練</div><div class="sgt">讓錢有方向，讓心有依靠</div><div class="sgs">陪你把錢和家都顧好</div></div></div>
 <div class="cta">
   <div><b>家裡也有繼承房地、房貸要處理？</b><p>私訊預約 15 分鐘免費電話，先了解你的現況。<br>這通電話不談商品，也不要求購買任何東西。</p></div>
   <div class="save">收藏<br>分享</div>
@@ -125,8 +139,8 @@ body{background:#888;font-family:"Noto Sans TC",sans-serif;font-variant-numeric:
 .light{background:var(--ivory);color:var(--ink)}
 .navy,.cover{background:var(--navy);color:#f2ede4}
 .light::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;background:var(--gold)}
-.navy::after,.cover::after{content:"";position:absolute;right:-260px;bottom:-260px;width:760px;height:760px;border-radius:50%;border:2px solid rgba(201,164,106,.18);box-shadow:0 0 0 60px rgba(201,164,106,.04),0 0 0 120px rgba(201,164,106,.03)}
-.top{display:flex;justify-content:space-between;align-items:center;font-size:24px;letter-spacing:.12em;position:relative;z-index:1}
+.navy::after-x,.cover::after-x{content:"";position:absolute;right:-260px;bottom:-260px;width:760px;height:760px;border-radius:50%;border:2px solid rgba(201,164,106,.18);box-shadow:0 0 0 60px rgba(201,164,106,.04),0 0 0 120px rgba(201,164,106,.03)}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:24px;position:relative;z-index:1}
 .brand{color:var(--gold);font-weight:700}
 .tag{border:2px solid var(--gold);color:var(--gold);padding:6px 18px;border-radius:40px;font-size:22px;letter-spacing:.08em}
 .body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:30px;padding:46px 0 36px;position:relative;z-index:1}
@@ -252,8 +266,26 @@ b{font-weight:700}
 .cta p{font-size:26px;line-height:1.55;margin-top:10px;opacity:.9}
 .save{width:150px;height:150px;border-radius:50%;background:var(--gold);color:var(--navy);display:flex;align-items:center;justify-content:center;text-align:center;font-size:32px;font-weight:900;line-height:1.3}
 '''
+CSS2 = r'''
+.brand{display:flex;align-items:center;gap:16px;letter-spacing:.04em}
+.brand .bn{font-family:"Noto Serif TC",serif;font-weight:700;font-size:30px;color:inherit}
+.light .brand .bn{color:#13253c}.navy .brand .bn,.cover .brand .bn{color:#fff}
+.brand .sep,.sgn .sep{display:inline-block;width:2px;height:28px;background:#c9a464;margin:0 4px}
+.brand .bz{font-weight:700;font-size:27px;letter-spacing:.1em}
+.light .brand .bz{color:#13253c}.navy .brand .bz,.cover .brand .bz{color:#fff}
+.brand.lg .bn{font-size:44px}.brand.lg .bz{font-size:38px}.brand.lg .sep{height:40px}
+.deco{position:absolute;right:-300px;bottom:-280px;width:900px;height:900px;z-index:0;pointer-events:none}
+.cover .deco{right:-330px;top:180px;bottom:auto}
+.sig{display:flex;align-items:center;gap:30px;padding:6px 0}
+.sgn{font-family:"Noto Serif TC",serif;font-size:42px;font-weight:900;color:#13253c;display:flex;align-items:center;gap:14px}
+.sgn .sep{height:40px}
+.sgt{font-size:31px;color:#a8813f;letter-spacing:.16em;margin-top:6px;font-weight:700}
+.sgs{font-size:24px;color:#4c5664;letter-spacing:.12em;margin-top:2px}
+.ck li{padding:12px 26px;font-size:28px}
+.ck{gap:12px}
+'''
 html = f'''<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>繼承稅務輪播圖</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
-<style>{CSS}</style></head><body>{"".join(S)}</body></html>'''
+<style>{CSS}{CSS2}</style></head><body>{"".join(S)}</body></html>'''
 OUT.write_text(html, encoding="utf-8")
 print(len(S))
