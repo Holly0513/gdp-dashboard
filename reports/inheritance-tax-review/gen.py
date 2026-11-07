@@ -21,10 +21,15 @@ def cite(*ns):
     return "".join(f'<a class="cite" href="{SRC[n][1]}">[{n}]</a>' for n in ns)
 
 TOTAL = 12
+def compass(size, lower):
+    return (f'<svg class="cp" width="{size}" height="{size}" viewBox="0 0 100 100" aria-hidden="true">'
+            '<circle cx="50" cy="50" r="46" fill="none" stroke="#c9a464" stroke-width="4"/>'
+            '<polygon points="50,21 41.5,50 58.5,50" fill="#c9a464"/>'
+            f'<polygon points="41.5,50 58.5,50 50,79" fill="none" stroke="{lower}" stroke-width="4" stroke-linejoin="round"/></svg>')
 def page(n, section, body, cls=""):
     return f'''
 <section class="page {cls}">
-  <header class="run"><span class="brand">保險傳承證據代理人</span><span class="sec">{section}</span></header>
+  <header class="run"><span class="brand">{compass(15, "#14263d")}<b>Holly</b><i class="sep"></i>財務安心教練</span><span class="sec">{section}</span></header>
   <div class="content">{body}</div>
   <footer class="foot"><span>繼承房地稅務審閱報告書　｜　審閱稿・待會計師／律師覆核</span><span class="pn">{n:02d}<i> / {TOTAL:02d}</i></span></footer>
 </section>'''
@@ -125,7 +130,7 @@ P = []
 P.append(f'''
 <section class="page cover">
   <div class="cv-top">
-    <div class="cv-brand">保險傳承證據代理人<span>INHERITANCE &amp; TAX REVIEW</span></div>
+    <div class="cv-brand">{compass(46, "#ffffff")}<div><div class="cvn">Holly<i class="sep"></i>財務安心教練</div><span>讓錢有方向，讓心有依靠</span></div></div>
     <div class="cv-tag">審閱稿 ・ 2026 年 11 月</div>
   </div>
   <div class="cv-main">
@@ -406,15 +411,15 @@ P.append(page(10, "06　租稅規避界線", f'''
   <div><em>說明 4</em><b>借款目的</b><span>依實際情況說明，不得事後虛構</span></div>
 </div>
 <div class="verdict">不是「有節稅目的就違法」，也不是「銀行放款真實就一律排除租稅規避」。</div>
-'''))
+''', "airy"))
 
 # 11 court case
 P.append(page(11, "07　法院判決參考", f'''
 {h("CASE LAW", "114 年度訴字第 174 號：扣除與 20% 稅率分開審",
    "臺北高等行政法院高等行政訴訟庭，2026/1/29 判決，原告之訴駁回；判決確定狀態另待查。")}
 <div class="two">
-  <div class="card"><div class="no">A</div><h4>A 房地</h4><p>超額房貸負擔 1,367 萬餘元<br>核定交易所得 2,122 萬餘元</p></div>
-  <div class="card"><div class="no">B</div><h4>B 房地</h4><p>超額房貸負擔 2,796 萬餘元<br>核定交易所得 1,356 萬餘元</p></div>
+  <div class="card"><div class="no">A</div><h4>A 房地</h4><div class="stat2"><div><em>超額房貸負擔</em><b>1,367</b><span>萬餘元・已認列</span></div><div><em>核定交易所得</em><b>2,122</b><span>萬餘元</span></div></div></div>
+  <div class="card"><div class="no">B</div><h4>B 房地</h4><div class="stat2"><div><em>超額房貸負擔</em><b>2,796</b><span>萬餘元・已認列</span></div><div><em>核定交易所得</em><b>1,356</b><span>萬餘元</span></div></div></div>
 </div>
 <div class="cmp">
   <div><h4><i class="dot g"></i>可以參考的部分</h4><ul>
@@ -436,7 +441,7 @@ P.append(page(11, "07　法院判決參考", f'''
   </tbody>
 </table>
 <div class="verdict">結論：本案若主張非自願出售 20%，勝算有限；應以實際持有期間決定稅率，並將資源集中於額外負擔要件的舉證。{cite(6,8)}</div>
-'''))
+''', "airy"))
 
 # 12 action plan + checklist + sources
 risk = [("額外負擔 1,800 萬遭否准", "高", "高", "備齊抵押、清償與分配文件；依持分認列"),
