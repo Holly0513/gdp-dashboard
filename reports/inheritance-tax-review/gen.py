@@ -106,6 +106,18 @@ def balance():
     out.append('</svg>')
     return "".join(out)
 
+def scen_bars():
+    data = [("基準示範", 467.3, "c-total"), ("情境 A 兩名子女", 461.7, "c-add"), ("情境 B 配偶在世", 412.0, "c-add")]
+    W, H, l = 420, 150, 118
+    sc = (W - l - 60) / 500
+    out = [f'<svg viewBox="0 0 {W} {H}" class="chart" role="img" aria-label="各情境遺產稅">']
+    y = 14
+    for lab, v, c in data:
+        out.append(f'<text x="{l-10}" y="{y+17}" class="yl">{lab}</text><rect x="{l}" y="{y}" width="{v*sc:.1f}" height="26" rx="2" class="{c}"/><text x="{l+v*sc+6:.1f}" y="{y+18}" class="vl l">{v}</text>')
+        y += 42
+    out.append('</svg>')
+    return "".join(out)
+
 # ---------- pages ----------
 P = []
 
@@ -179,6 +191,13 @@ P.append(page(3, "01　執行摘要", f'''
   <div class="ins-k">關鍵洞見</div>
   <p><b>借款對遺產稅是「中性」的；真正的稅負差異只出現在售屋所得稅。</b>存款增加 4,200 萬、負債同步增加 4,200 萬，扣債後遺產價值與未借款時同為 6,200 萬。若 1,800 萬額外負擔獲准扣除，效果完全體現在房地合一稅（20% 時少 360 萬），這也正是稽徵機關檢視「是否濫用法律形式」的焦點。</p>
 </div>
+<div class="qs3"><div class="qh">三個分開判斷的法律問題</div>
+  <div><b>①</b>遺產現金與債務是否如實列報？</div><div><b>②</b>1,800 萬額外負擔是否確由子女承受？</div><div><b>③</b>借款是否存在濫用法律形式的安排？</div></div>
+<div class="next3">
+  <div><em>NEXT 1</em><b>調閱原始取得日</b><span>登記謄本、異動索引，決定新舊制與稅率</span></div>
+  <div><em>NEXT 2</em><b>備齊扣除證據</b><span>抵押、死亡日餘額、清償紀錄、分割協議</span></div>
+  <div><em>NEXT 3</em><b>交專業覆核</b><span>會計師試算申報，律師檢視租稅規避風險</span></div>
+</div>
 <div class="verdict">不是「有 8,000 萬現金就必不准扣」，也不是「有 4,200 萬房貸就必准扣」。</div>
 '''))
 
@@ -194,7 +213,20 @@ P.append(page(4, "02　案件事實", f'''
 <div class="panel">
   <div class="ph"><b>死亡日（2024/6/1）資產負債快照</b><span>單位：萬元</span></div>
   {balance()}
-  <p class="note">斜線區塊即借款存入之 4,200 萬：它同時出現在資產與負債兩側，<strong>並非新增淨資產</strong>。{cite(1,9)}</p>
+  <p class="note">金色區塊即借款存入之 4,200 萬：它同時出現在資產與負債兩側，<strong>並非新增淨資產</strong>。{cite(1,9)}</p>
+</div>
+<div class="panel">
+  <div class="ph"><b>家族現金流全貌（示範 A，稅率 20%）</b><span>單位：萬元</span></div>
+  <div class="flow">
+    <div class="fs"><em>繼承存款</em><b>8,000</b></div><i>→</i>
+    <div class="fs neg"><em>繳遺產稅</em><b>−467.3</b></div><i>→</i>
+    <div class="fs neg"><em>清償房貸</em><b>−4,200</b></div><i>→</i>
+    <div class="fs pos"><em>出售房地</em><b>+6,000</b></div><i>→</i>
+    <div class="fs neg"><em>有憑證費用</em><b>−100</b></div><i>→</i>
+    <div class="fs neg"><em>房地合一稅</em><b>−296 / −656</b></div>
+  </div>
+  <div class="flowres"><div><em>額外負擔全額准扣</em><b>8,936.7</b></div><div><em>額外負擔不准扣</em><b>8,576.7</b></div><div class="d"><em>差額</em><b>360</b></div></div>
+  <p class="note">未計土地增值稅、契稅、代書與其他交易成本；僅用於理解資金走向，不代表實際可支配金額。</p>
 </div>
 '''))
 
@@ -249,7 +281,19 @@ P.append(page(6, "03　第一階段｜遺產稅", f'''
   <div class="card soft"><h4>扣債的證據門檻</h4><p>需能證明貸款期間、撥款入帳、死亡日餘額，且債務屬被繼承人本人。缺證明時，存款照列、債務不准扣，稅負反而上升。{cite(9)}</p></div>
   <div class="card soft"><h4>重病期間舉債之檢查</h4><p>若借款時被繼承人已重病無法處理事務，繼承人須說明借款用途。本案資金仍在存款中並已列入遺產，宜備妥流水佐證。</p></div>
 </div>
-<div class="verdict">資產 10,400 − 貸款 4,200 ＝ 6,200 萬，仍不是最終「課稅遺產淨額」；應以實際家庭與財產狀況重算。</div>
+<div class="two w64">
+  <div class="panel"><div class="ph"><b>各情境遺產稅</b><span>單位：萬元</span></div>{scen_bars()}</div>
+  <table class="tbl">
+    <thead><tr><th>113 年課稅遺產淨額</th><th class="n">稅率</th></tr></thead>
+    <tbody>
+      <tr class="hl-g"><td>5,621 萬以下</td><td class="n">10%</td></tr>
+      <tr><td>5,621–11,242 萬</td><td class="n">15%</td></tr>
+      <tr><td>11,242 萬以上</td><td class="n">20%</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="insight"><div class="ins-k">配偶提醒</div><p>若配偶在世，除 553 萬配偶扣除額外，還可主張<b>剩餘財產差額分配請求權</b>，自遺產總額中扣除，常是影響稅額最大的一項；須於申報時主張並附財產證明。</p></div>
+<div class="verdict">資產 10,400 − 貸款 4,200 ＝ 6,200 萬，仍不是最終「課稅遺產淨額」；應以實際家庭與財產狀況重算。{cite(3)}</div>
 '''))
 
 # 07 house tax regime
@@ -270,6 +314,13 @@ P.append(page(7, "04　第二階段｜房地合一稅", f'''
     <tr><td>超過 10 年</td><td class="n">15%</td><td></td></tr>
   </tbody>
 </table>
+<div class="steps4">
+  <div><em>STEP 1</em><b>調閱謄本</b><span>確認父親原始取得日與取得原因</span></div>
+  <div><em>STEP 2</em><b>判定新舊制</b><span>以 105/1/1 前後及過渡規定判斷</span></div>
+  <div><em>STEP 3</em><b>合併持有期間</b><span>父親持有期間＋子女繼承後持有</span></div>
+  <div><em>STEP 4</em><b>確定稅率試算</b><span>再代入成本、費用、額外負擔</span></div>
+</div>
+<div class="insight"><div class="ins-k">為何先查日期</div><p>同樣 3,280 萬課稅所得，稅率 20% 為 656 萬、35% 為 1,148 萬，<b>相差 492 萬</b>，甚至大於 1,800 萬額外負擔帶來的 360 萬差額。取得日的查證，是本案效益最高的一步。</p></div>
 <div class="verdict">關鍵：2022 年是「借款日」，不一定是「原始購屋日」。未核對權狀與原始取得資料前，不能確定售屋稅率。{cite(5,6,10)}</div>
 '''))
 
@@ -299,15 +350,23 @@ P.append(page(8, "05　1,800 萬額外負擔", f'''
   <div class="ph"><b>應納房地合一稅比較</b><span>單位：萬元</span></div>
   {tax_bars()}
 </div>
+<table class="tbl wide">
+  <thead><tr><th>額外負擔認列比例（對應要件四：實際負擔與持分）</th><th class="n">認列金額</th><th class="n">課稅所得</th><th class="n">稅額（20%）</th><th class="n">稅額（35%）</th></tr></thead>
+  <tbody>
+    <tr><td>不准扣（0%）</td><td class="n">0</td><td class="n">3,280</td><td class="n">656</td><td class="n">1,148</td></tr>
+    <tr><td>部分認列（50%）</td><td class="n">900</td><td class="n">2,380</td><td class="n">476</td><td class="n">833</td></tr>
+    <tr class="tot"><td>全額認列（100%）</td><td class="n">1,800</td><td class="n">1,480</td><td class="n">296</td><td class="n">518</td></tr>
+  </tbody>
+</table>
 <p class="note">稅額差僅在全部符合扣除條件時成立；成本、費用、物價指數或稅率不同時應重算。{cite(1,2,5)}</p>
 '''))
 
 # 09 four requirements
-req = [("一", "同一標的", "死亡時未償債務，必須以本次繼承並出售的「該房地」提供抵押擔保。", "y", "核對抵押權設定"),
-       ("二", "金融機構", "以金融機構為債權人；私人間借貸不因有不動產抵押就自動符合令釋。", "g", "本案為銀行貸款"),
-       ("三", "超過現值", "死亡日抵押貸款餘額 4,200 − 房地現值 2,400 ＝ 1,800 萬，為差額上限。", "g", "金額可確認"),
-       ("四", "實際負擔", "須核對繼承人負擔與償還紀錄；僅部分真正負擔者，不能不分持分全額認列。", "y", "核對清償憑證與持分")]
-req_html = "".join(f'<div class="req"><div class="rn">要件{a}</div><h4>{b}</h4><p>{c}</p><div class="st"><i class="dot {d}"></i>{e}</div></div>' for a, b, c, d, e in req)
+req = [("一", "同一標的", "死亡時未償債務，必須以本次繼承並出售的「該房地」提供抵押擔保。", "y", "核對抵押權設定", "他項權利證明書、抵押權設定契約、建物／土地謄本"),
+       ("二", "金融機構", "以金融機構為債權人；私人間借貸不因有不動產抵押就自動符合令釋。", "g", "本案為銀行貸款", "銀行借款契約、撥款入帳紀錄"),
+       ("三", "超過現值", "死亡日抵押貸款餘額 4,200 − 房地現值 2,400 ＝ 1,800 萬，為差額上限。", "g", "金額可確認", "死亡日貸款餘額證明、公告土地現值與房屋評定現值"),
+       ("四", "實際負擔", "須核對繼承人負擔與償還紀錄；僅部分真正負擔者，不能不分持分全額認列。", "y", "核對清償憑證與持分", "清償本息扣款紀錄、遺產分割協議、繼承登記持分")]
+req_html = "".join(f'<div class="req"><div class="rn">要件{a}</div><h4>{b}</h4><p>{c}</p><div class="ev"><em>應備證據</em>{f}</div><div class="st"><i class="dot {d}"></i>{e}</div></div>' for a, b, c, d, e, f in req)
 P.append(page(9, "05　1,800 萬額外負擔", f'''
 {h("ELIGIBILITY", "109 年令釋：四道要件都要成立",
    "四項要件為「且」的關係，任何一項無法證明，1,800 萬即不得自售屋所得中減除。")}
@@ -336,6 +395,16 @@ P.append(page(10, "06　租稅規避界線", f'''
   <div class="card y"><h4>需加強調查的疑點</h4><p>借款完全未動用，資金目的為何？是否有親友代償、補償或資金回流？繼承分配與付款人是否一致？</p></div>
   <div class="card r"><h4>依法調整不能靠臆測</h4><p>納保法第 7 條：須證明濫用法律形式、非常規交易、違背立法目的等要件；稽徵機關負舉證責任，納稅人負協力義務。{cite(7)}</p></div>
 </div>
+<div class="spec">
+  <div class="sbar"><span class="z1">合法節稅</span><span class="z2">灰色地帶・須說明</span><span class="z3">租稅規避／虛偽</span></div>
+  <div class="slab"><div>真實借貸、如實列報、子女實際清償</div><div>借款未動用、目的未說明、付款人與分配不一致</div><div>虛偽借貸、資金回流、親友代償未揭露</div></div>
+</div>
+<div class="steps4">
+  <div><em>說明 1</em><b>交易真實</b><span>契約、撥款、抵押登記完整</span></div>
+  <div><em>說明 2</em><b>資金未挪用</b><span>存款流水連續，並已列入遺產</span></div>
+  <div><em>說明 3</em><b>負擔歸屬</b><span>分割協議、清償人與持分一致</span></div>
+  <div><em>說明 4</em><b>借款目的</b><span>依實際情況說明，不得事後虛構</span></div>
+</div>
 <div class="verdict">不是「有節稅目的就違法」，也不是「銀行放款真實就一律排除租稅規避」。</div>
 '''))
 
@@ -357,6 +426,15 @@ P.append(page(11, "07　法院判決參考", f'''
     <li>不得把另一件判決當作本案已獲核定的證據。</li>
     <li>本案繼承 8,000 萬存款，僅稱房貸很高，難以主張非自願出售。</li></ul></div>
 </div>
+<table class="tbl wide">
+  <thead><tr><th>比較項目</th><th>114 年度訴字第 174 號</th><th>本案</th></tr></thead>
+  <tbody>
+    <tr><td><b>主要爭點</b></td><td>非自願出售能否適用 20%</td><td>額外負擔扣除資格、原始取得日與稅率</td></tr>
+    <tr><td><b>額外負擔</b></td><td>已在所得計算中認列</td><td>1,800 萬，待查證四要件</td></tr>
+    <tr><td><b>繼承人資力</b></td><td>法院衡量遺產市值、存款、股票</td><td>繼承 8,000 萬存款</td></tr>
+    <tr><td><b>結果</b></td><td>原告之訴駁回，維持 35%</td><td>尚未申報／核定</td></tr>
+  </tbody>
+</table>
 <div class="verdict">結論：本案若主張非自願出售 20%，勝算有限；應以實際持有期間決定稅率，並將資源集中於額外負擔要件的舉證。{cite(6,8)}</div>
 '''))
 
@@ -389,6 +467,10 @@ P.append(page(12, "08　行動計畫與證據清單", f'''
 </div>
 <h4 class="sh">官方原始來源（可點擊）</h4>
 <ol class="srcs">{src_html}</ol>
+<table class="tbl wide sign">
+  <thead><tr><th>審閱紀錄</th><th>姓名</th><th>日期</th><th>意見／簽章</th></tr></thead>
+  <tbody><tr><td>編製</td><td></td><td></td><td></td></tr><tr><td>會計師覆核</td><td></td><td></td><td></td></tr><tr><td>律師覆核</td><td></td><td></td><td></td></tr></tbody>
+</table>
 <p class="disc">本報告為稅務審閱之示範試算與教育用途，不構成稅務、法律意見或特定商品推薦，亦不保證稽徵機關核定結果；尚未通過證據、專家及發布審核，申報前請交由會計師／律師核對。</p>
 '''))
 
